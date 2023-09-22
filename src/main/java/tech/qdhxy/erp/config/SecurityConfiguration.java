@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import tech.qdhxy.erp.common.SecurityProblemSupport;
 import tech.qdhxy.erp.security.jwt.JWTConfigurer;
 import tech.qdhxy.erp.security.jwt.TokenProvider;
 
@@ -22,6 +23,7 @@ import java.util.Objects;
 public class SecurityConfiguration {
     private final ApplicationProperties applicationProperties;
     private final TokenProvider tokenProvider;
+    private final SecurityProblemSupport securityProblemSupport;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -57,12 +59,15 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(securityProblemSupport)
+                .accessDeniedHandler(securityProblemSupport)
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/sso/authenticate").permitAll()
-                .antMatchers("/api/sso/**").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/management/health").permitAll()
                 .antMatchers("/management/info").permitAll()

@@ -93,12 +93,12 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         return R.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMsg());
     }
 
-
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R<Void> handleInterbalError(Throwable e) {
         log.error("内部错误", e);
         return R.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
     }
+
 
 }

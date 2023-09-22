@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tech.qdhxy.erp.common.exceptions.BadRequestException;
 import tech.qdhxy.erp.security.jwt.JWTFilter;
@@ -23,6 +24,7 @@ import javax.validation.Valid;
 /**
  * Controller to authenticate users.
  */
+@Validated
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api")

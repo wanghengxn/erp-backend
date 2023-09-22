@@ -11,12 +11,12 @@ import javax.validation.constraints.Size;
 @Setter
 @ToString
 public class LoginVM {
-    @NotNull
-    @Size(min = 1, max = 50, message = "用户名密码错误")
+    @NotNull(message = "不能为空")
+    @Size(min = 1, max = 50, message = "用户名长度在1-50字符之间")
     private String username;
 
     @NotNull
-    @Size(min = 4, max = 100, message = "用户名密码错误")
+    @Size(min = 4, max = 100, message = "密码长度在4-100个字符之间")
     private String password;
 
     private Boolean rememberMe;
