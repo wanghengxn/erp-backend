@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tech.qdhxy.erp.domain.sso.SsoUser;
 import tech.qdhxy.erp.repository.sso.SsoUserRepository;
+import tech.qdhxy.erp.security.SecurityUtils;
 
 import java.util.Optional;
 
@@ -22,5 +23,9 @@ public class SsoUserService extends ServiceImpl<SsoUserRepository, SsoUser> {
         return Optional.ofNullable(this.baseMapper.selectOne(Wrappers
                 .<SsoUser>lambdaQuery()
                 .eq(SsoUser::getEmail, email)));
+    }
+
+    public SsoUser getCurrentLoginUser() {
+        return SecurityUtils.getCurrentUserLogin().flatMap(this::getOneByMobile).orElse(null);
     }
 }

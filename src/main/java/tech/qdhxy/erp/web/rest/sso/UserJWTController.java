@@ -27,7 +27,7 @@ import javax.validation.Valid;
 @Validated
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/sso")
 public class UserJWTController {
 
     private final TokenProvider tokenProvider;

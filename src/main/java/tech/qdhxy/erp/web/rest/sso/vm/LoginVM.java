@@ -22,7 +22,7 @@ public class LoginVM {
     private Boolean rememberMe;
 
     @NotNull(message = "登录方式不能为空")
-    private LoginType loginType;
+    private LoginType loginType = LoginType.MOBILE;
 
 
 }

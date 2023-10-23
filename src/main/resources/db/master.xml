@@ -14,4 +14,5 @@
     <property name="uuidType" value="varchar(36)" dbms="h2, mysql"/>
 
     <include file="db/changelog/sso/user.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/sso/user_data.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
