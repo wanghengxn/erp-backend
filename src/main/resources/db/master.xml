@@ -12,7 +12,13 @@
     <property name="clobType" value="clob" dbms="h2"/>
     <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
     <property name="uuidType" value="varchar(36)" dbms="h2, mysql"/>
+    <!-- sso 开始 -->
+    <include file="db/changelog/sso/$0001_user.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/sso/$0002_user_data.xml" relativeToChangelogFile="false"/>
+    <!-- sso 结束 -->
 
-    <include file="db/changelog/sso/user.xml" relativeToChangelogFile="false"/>
-    <include file="db/changelog/sso/user_data.xml" relativeToChangelogFile="false"/>
+    <!-- 中台 开始 -->
+    <include file="db/changelog/mid/$0001_data_dict.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/mid/$0002_data_dict_data.xml" relativeToChangelogFile="false"/>
+    <!-- 中台 结束 -->
 </databaseChangeLog>

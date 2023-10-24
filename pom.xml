@@ -21,6 +21,8 @@
 		<mybatis-flex.v>1.6.5</mybatis-flex.v>
 		<lombok.v>1.18.20</lombok.v>
 		<jjwt.version>0.11.1</jjwt.version>
+		<liquibase.version>4.9.1</liquibase.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -127,6 +129,18 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<scope>provided</scope>
+			<version>${mapstruct.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -146,6 +160,32 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<configuration>
+					<changeLogFile>${project.basedir}/src/main/resources/db/master.xml</changeLogFile>
+					<diffChangeLogFile>
+						${project.basedir}/src/main/resources/db/changelog/${maven.build.timestamp}_changelog.xml
+					</diffChangeLogFile>
+					<driver>com.mysql.cj.jdbc.Driver</driver>
+					<url>
+						<![CDATA[jdbc:mysql://localhost:3306/erp_dev]]></url>
+					<defaultSchemaName>erp_dev</defaultSchemaName>
+					<username>root</username>
+					<password>testAbc123</password>
+					<verbose>true</verbose>
+					<logging>debug</logging>
+					<contexts>!test</contexts>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.liquibase</groupId>
+						<artifactId>liquibase-core</artifactId>
+						<version>${liquibase.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -176,11 +216,11 @@
 							<artifactId>lombok</artifactId>
 							<version>${lombok.v}</version>
 						</path>
-<!--						<path>-->
-<!--							<groupId>com.mybatis-flex</groupId>-->
-<!--							<artifactId>mybatis-flex-processor</artifactId>-->
-<!--							<version>${mybatis-flex.v}</version>-->
-<!--						</path>-->
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>

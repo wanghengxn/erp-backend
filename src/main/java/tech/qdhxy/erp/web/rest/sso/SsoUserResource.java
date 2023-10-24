@@ -37,7 +37,7 @@ public class SsoUserResource {
         ssoUser.setMobile("11111");
         ssoUser.setEmail("111@fa.com");
         ssoUser.setRealName("1111");
-        myPage.setRecords(Arrays.asList(ssoUser));
+        myPage.setData(Arrays.asList(ssoUser));
         return myPage;
     }
 
