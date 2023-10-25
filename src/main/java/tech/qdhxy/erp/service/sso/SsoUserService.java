@@ -7,8 +7,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tech.qdhxy.erp.common.exceptions.BadRequestException;
 import tech.qdhxy.erp.domain.sso.SsoUser;
+import tech.qdhxy.erp.repository.accounting.UserAccountSetRepository;
 import tech.qdhxy.erp.repository.sso.SsoUserRepository;
 import tech.qdhxy.erp.security.SecurityUtils;
+import tech.qdhxy.erp.service.accounting.UserAccountSetService;
 import tech.qdhxy.erp.service.sso.dto.SsoUserDTO;
 import tech.qdhxy.erp.service.sso.mapper.SsoUserMapper;
 import tech.qdhxy.erp.web.rest.sso.vm.UpdateCurrentUserPwdVM;
@@ -20,6 +22,7 @@ import java.util.Optional;
 public class SsoUserService extends ServiceImpl<SsoUserRepository, SsoUser> {
     private final SsoUserMapper ssoUserMapper;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final UserAccountSetService userAccountSetService;
 
     public Optional<SsoUser> getOneByMobile(String mobile) {
         return Optional.ofNullable(this.baseMapper.selectOne(Wrappers
@@ -33,18 +36,28 @@ public class SsoUserService extends ServiceImpl<SsoUserRepository, SsoUser> {
                 .eq(SsoUser::getEmail, email)));
     }
 
+    public Optional<SsoUser> getOneByCode(String code) {
+        return Optional.ofNullable(this.baseMapper.selectOne(Wrappers
+                .<SsoUser>lambdaQuery()
+                .eq(SsoUser::getCode, code)));
+    }
+
     public SsoUserDTO getCurrentLoginUser() {
         return SecurityUtils
                 .getCurrentUserLogin()
-                .flatMap(this::getOneByMobile)
+                .flatMap(this::getOneByCode)
                 .map(ssoUserMapper::toDto)
+                .map(dto -> {
+                    dto.setSelectedAccountSetCode(userAccountSetService.getSelectedAccountSetCodeByUserCode(dto.getCode()));
+                    return dto;
+                })
                 .orElse(null);
     }
 
     public void updatePwd(UpdateCurrentUserPwdVM vm) {
         Optional<SsoUser> currentUserOpt = SecurityUtils
                 .getCurrentUserLogin()
-                .flatMap(this::getOneByMobile);
+                .flatMap(this::getOneByCode);
         if(currentUserOpt.isPresent()) {
             String pwd = currentUserOpt.get().getPwd();
             if(passwordEncoder.matches(vm.getOldPwd(), pwd)) {

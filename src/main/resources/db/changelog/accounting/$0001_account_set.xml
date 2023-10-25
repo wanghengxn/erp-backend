@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="accounting-0001" author="whx">
+        <sql>
+            CREATE TABLE `erp_ac_account_set`
+            (
+                `id`                       BIGINT ( 20 ) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                `code`                     varchar(64)  NOT NULL COMMENT '帐套code',
+                `name`                     VARCHAR(60)  NOT NULL COMMENT '帐套名称',
+                `start_year`               CHAR(4)      NOT NULL COMMENT '帐套启用年份',
+                `start_month`              varchar(4)   NOT NULL COMMENT '帐套启用月份',
+                `unified_number`           varchar(30) NULL COMMENT '统一社会',
+                `accounting_standard_code` varchar(4)   NOT NULL COMMENT '会计准则代码',
+                `industry_code`            varchar(10) NULL COMMENT '行业代码',
+                `tax_type_code`            varchar(4)   NOT NULL COMMENT '增值税种类代码',
+                `assets_module`            tinyint      NOT NULL default 1 COMMENT '是否开启资产模块',
+                `cash_module`              tinyint      NOT NULL default 1 COMMENT '是否开启资金模块',
+                `psi_module`               tinyint      NOT NULL default 1 COMMENT '是否关联进销存模块',
+                `voucher_audit`            tinyint      NOT NULL default 0 COMMENT '是否审核凭证',
+                `decimal_place`            int          NOT NULL default 8 COMMENT  '单位/数量/汇率小数',
+                `tax_payer_name`           VARCHAR(60) NULL COMMENT '纳税人名称',
+                `tax_number`               VARCHAR(60) NULL COMMENT '纳税人识别号',
+                `tax_province`             VARCHAR(60) NULL COMMENT '保税地区',
+                `tax_payer_password`       VARCHAR(60) NULL COMMENT '电子税局密码',
+                `tax_emp_name`             VARCHAR(60) NULL COMMENT '个税办税人员姓名',
+                `tax_emp_phone`            VARCHAR(20) NULL COMMENT '个税办税人员手机',
+                `tax_emp_password`         VARCHAR(60) NULL COMMENT '个税系统',
+                `status`                   int          NOT NULL default 1 COMMENT '是否正常状态0被删除1正常',
+                `created_date`             TIMESTAMP(0) NOT NULL COMMENT '创建时间',
+                `created_by`               VARCHAR(60)  NOT NULL COMMENT '创建人',
+                `last_modified_date`       TIMESTAMP(0) NULL DEFAULT NULL COMMENT '最后更新时间',
+                `last_modified_by`         VARCHAR(60) NULL DEFAULT NULL COMMENT '最后更新人',
+                PRIMARY KEY (`id`) USING BTREE
+            ) ENGINE = INNODB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT '财务-帐套';
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -9,6 +9,7 @@ import tech.qdhxy.erp.domain.BaseEntity;
 @Setter
 @TableName("erp_sso_user")
 public class SsoUser extends BaseEntity {
+    private String code;
     private String email;
     private String mobile;
     private String pwd;

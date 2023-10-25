@@ -40,7 +40,7 @@ public class DomainUserDetailsService implements UserDetailsService {
         if (!user.getActivated() ) {
             throw new UserNotActivatedException("用户" + username + "没有激活");
         }
-        return new org.springframework.security.core.userdetails.User(user.getMobile(),
+        return new org.springframework.security.core.userdetails.User(user.getCode(),
                 user.getPwd(),
                 grantedAuthorities);
     }

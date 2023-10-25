@@ -16,5 +16,8 @@ id;group_key;item_key;item_value;status;created_date;created_by
 17;ACCOUNTING_STANDARDS;2;企业会计准则;true;now();system
 18;ACCOUNTING_STANDARDS;3;民间非盈利组织会计制度;true;now();system
 19;ACCOUNTING_STANDARDS;4;农民专业合作社财务会计制度(2023年);true;now();system
-20;META;INDUSTRY;行业;true;now();system
-21;META;ACCOUNTING_STANDARDS;会计准则;true;now();system
+20;TAX_TYPE;1;小规模纳税人;true;now();system
+21;TAX_TYPE;2;一般纳税人;true;now();system
+22;META;INDUSTRY;行业;true;now();system
+23;META;ACCOUNTING_STANDARDS;会计准则;true;now();system
+24;META;TAX_TYPE;增值税种类;true;now();system

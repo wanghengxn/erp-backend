@@ -6,9 +6,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SsoUserDTO {
+    private String code;
     private String email;
     private String mobile;
     private String name;
     private String realName;
     private Boolean activated;
+    // 选择的帐套
+    private String selectedAccountSetCode;
 }

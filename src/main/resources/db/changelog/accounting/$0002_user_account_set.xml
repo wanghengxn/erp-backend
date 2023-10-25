@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="accounting-0002" author="whx">
+        <sql>
+            CREATE TABLE `erp_ac_user_account_set`
+            (
+                `id`                 BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                `user_code`          VARCHAR(64)  NOT NULL COMMENT '用户code',
+                `account_set_code`   varchar(64)  NOT NULL COMMENT '帐套code',
+                `selected`           tinyint      NOT NULL default 0 COMMENT '是否当前选择的帐套',
+                `user_role`          varchar(20)  NOT NULL COMMENT '用户在帐套的角色',
+                `created_date`       TIMESTAMP(0) NOT NULL COMMENT '创建时间',
+                `created_by`         VARCHAR(60)  NOT NULL COMMENT '创建人',
+                `last_modified_date` TIMESTAMP(0) NULL DEFAULT NULL COMMENT '最后更新时间',
+                `last_modified_by`   VARCHAR(60) NULL DEFAULT NULL COMMENT '最后更新人',
+                PRIMARY KEY (`id`) USING BTREE
+            ) ENGINE = INNODB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT '财务-用户的帐套';
+        </sql>
+        <sql>
+            create unique index uidx_uac_uc_asc on erp_ac_user_account_set(user_code,account_set_code);
+        </sql>
+        <sql>
+            create unique index uidx_uac_uc_selected on erp_ac_user_account_set(user_code,selected);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

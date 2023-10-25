@@ -1,2 +1,2 @@
-id;email;mobile;pwd;name;real_name;activated;created_date;created_by
-1;admin@localhost.com;17554200155;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;true;now();system
+id;code;email;mobile;pwd;name;real_name;activated;created_date;created_by
+1;1;admin@localhost.com;17554200155;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;true;now();system
