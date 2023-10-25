@@ -2,14 +2,15 @@ package tech.qdhxy.erp.web.rest.sso;
 
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tech.qdhxy.erp.common.exceptions.BadRequestException;
 import tech.qdhxy.erp.common.exceptions.BusinessException;
 import tech.qdhxy.erp.common.vo.MyPage;
 import tech.qdhxy.erp.domain.sso.SsoUser;
 import tech.qdhxy.erp.service.sso.SsoUserService;
+import tech.qdhxy.erp.service.sso.dto.SsoUserDTO;
 import tech.qdhxy.erp.web.rest.sso.query.SsoUserQuery;
+import tech.qdhxy.erp.web.rest.sso.vm.UpdateCurrentUserPwdVM;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -43,7 +44,16 @@ public class SsoUserResource {
 
     // 获取当前登录用户信息
     @GetMapping("/account/current")
-    public SsoUser getCurrentLoginUser() {
+    public SsoUserDTO getCurrentLoginUser() {
         return ssoUserService.getCurrentLoginUser();
+    }
+
+    // 更新密码
+    @PutMapping("/account/current/pwd")
+    public void updatePwd(@Valid @RequestBody UpdateCurrentUserPwdVM vm) {
+        if(!vm.getNewPwd().equals(vm.getConfirmNewPwd())) {
+            throw new BadRequestException("两次新密码不一致");
+        }
+        ssoUserService.updatePwd(vm);
     }
 }

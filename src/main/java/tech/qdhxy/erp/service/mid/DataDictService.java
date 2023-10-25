@@ -25,7 +25,9 @@ public class DataDictService extends ServiceImpl<DataDictRepository, DataDict> {
         DataDict meta = this.baseMapper.selectOne(Wrappers.<DataDict>lambdaQuery()
                 .eq(DataDict::getGroupKey, Constants.DATA_DICT_META_GROUP)
                 .eq(DataDict::getItemKey, groupKey));
-        return this.baseMapper.selectList(Wrappers.<DataDict>lambdaQuery().eq(DataDict::getGroupKey, groupKey))
+        return this.baseMapper.selectList(Wrappers.<DataDict>lambdaQuery()
+                        .eq(DataDict::getGroupKey, groupKey)
+                        .eq(DataDict::getStatus, true))
                 .stream()
                 .map(e -> {
                     DataDictDTO dto = dataDictMapper.toDto(e);

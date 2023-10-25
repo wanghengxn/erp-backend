@@ -1,4 +1,4 @@
-package tech.qdhxy.erp.service.mid.mapper;
+package tech.qdhxy.erp.common;
 
 import java.util.List;
 
