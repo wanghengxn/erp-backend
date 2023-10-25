@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="sso-0001" author="whx">
+        <sql>
+            CREATE TABLE `erp_sso_user`
+            (
+                `id`                 bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                `email`              varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮箱',
+                `mobile`             varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '手机号',
+                `pwd`                varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密码',
+                `name`               varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '用户名',
+                `real_name`          varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '真实名',
+                `activated`          tinyint(4) NOT NULL DEFAULT 1 COMMENT '是否有效',
+                `created_date`       timestamp(0)                                                 NOT NULL COMMENT '创建时间',
+                `created_by`         varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '创建人',
+                `last_modified_date` timestamp(0) NULL DEFAULT NULL COMMENT '最后更新时间',
+                `last_modified_by`   varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '最后更新人',
+                PRIMARY KEY (`id`) USING BTREE,
+                UNIQUE INDEX `email`(`email`) USING BTREE,
+                UNIQUE INDEX `mobile`(`mobile`) USING BTREE
+            ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+        </sql>
+    </changeSet>
+</databaseChangeLog>
