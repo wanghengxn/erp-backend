@@ -91,4 +91,21 @@ public class DataDictService extends ServiceImpl<DataDictRepository, DataDict> {
                 .set(DataDict::getStatus, status)
                 .eq(DataDict::getId, id));
     }
+
+    public List<DataDictDTO> getDictByGroupKeys(Set<String> groupKeySet) {
+        Map<String, String> metas = this.baseMapper.selectList(Wrappers.<DataDict>lambdaQuery()
+                .eq(DataDict::getGroupKey, Constants.DATA_DICT_META_GROUP)
+                .in(DataDict::getItemKey, groupKeySet))
+                .stream().collect(Collectors.toMap(DataDict::getItemKey, DataDict::getItemValue));
+        return this.baseMapper.selectList(Wrappers.<DataDict>lambdaQuery()
+                        .in(DataDict::getGroupKey, groupKeySet)
+                        .eq(DataDict::getStatus, true))
+                .stream()
+                .map(e -> {
+                    DataDictDTO dto = dataDictMapper.toDto(e);
+                    dto.setGroupName(metas.getOrDefault(dto.getGroupKey(), ""));
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 }

@@ -12,8 +12,12 @@ import tech.qdhxy.erp.service.mid.dto.DataDictDTO;
 import tech.qdhxy.erp.web.rest.mid.query.DataDictQuery;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Validated
 @AllArgsConstructor
@@ -34,8 +38,13 @@ public class DataDictResource {
      * @return
      */
     @GetMapping("/group-key")
-    public List<DataDictDTO> getDictByGroupKey(@RequestParam String groupKey) {
+    public List<DataDictDTO> getDictByGroupKey(@NotNull @RequestParam String groupKey) {
         return this.dataDictService.getDictByGroupKey(groupKey);
+    }
+    @GetMapping("/group-keys")
+    public List<DataDictDTO> getDictByGroupKeys(@NotNull @RequestParam String groupKeys) {
+        Set<String> groupKeySet = Stream.of(groupKeys.split(",")).collect(Collectors.toSet());
+        return this.dataDictService.getDictByGroupKeys(groupKeySet);
     }
     @GetMapping("/meta")
     public List<DataDictDTO> getDictByGroupKey() {
