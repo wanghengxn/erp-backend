@@ -5,6 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import tech.qdhxy.erp.common.exceptions.BadRequestException;
+import tech.qdhxy.erp.common.exceptions.UserNotLoginException;
 import tech.qdhxy.erp.common.utils.AuthoritiesConstants;
 
 import java.util.Optional;
@@ -23,6 +25,10 @@ public final class SecurityUtils {
     public static Optional<String> getCurrentUserLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         return Optional.ofNullable(extractPrincipal(securityContext.getAuthentication()));
+    }
+
+    public static String mustGetCurrentUserLogin() {
+        return getCurrentUserLogin().orElseThrow(UserNotLoginException::new);
     }
 
     private static String extractPrincipal(Authentication authentication) {

@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.qdhxy.erp.common.vo.MyPage;
 import tech.qdhxy.erp.domain.accounting.AccountSet;
 import tech.qdhxy.erp.domain.mid.DataDict;
 import tech.qdhxy.erp.service.accounting.AccountSetService;
+import tech.qdhxy.erp.service.accounting.dto.AccountSetDTO;
 import tech.qdhxy.erp.web.rest.accounting.query.AccountSetQuery;
 
 @Validated
@@ -24,5 +26,10 @@ public class AccountSetResource {
     public MyPage<AccountSet> getPage(AccountSetQuery query) {
        IPage<AccountSet> page = accountSetService.getPage(query);
        return MyPage.of(page);
+    }
+
+    @PostMapping("")
+    public AccountSetDTO insert(AccountSetDTO accountSetDTO) {
+        return accountSetService.saveRecord(accountSetDTO);
     }
 }

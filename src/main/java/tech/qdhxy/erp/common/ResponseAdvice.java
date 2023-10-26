@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import tech.qdhxy.erp.common.exceptions.BadRequestException;
 import tech.qdhxy.erp.common.exceptions.BusinessException;
+import tech.qdhxy.erp.common.exceptions.UserNotLoginException;
 import tech.qdhxy.erp.common.utils.JsonUtil;
 import tech.qdhxy.erp.common.vo.R;
 
@@ -91,6 +92,13 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     public R<Void> handleBusinessException(BusinessException e) {
         log.error("业务错误{}", e.getMsg(), e);
         return R.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMsg());
+    }
+
+    @ExceptionHandler(UserNotLoginException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public R<Void> handleUserNotLoginException(UserNotLoginException e) {
+        log.error("用户未登录{}", e.getMessage(), e);
+        return R.error(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
     }
 
     @ExceptionHandler(Throwable.class)
