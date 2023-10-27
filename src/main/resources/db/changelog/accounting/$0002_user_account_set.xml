@@ -23,8 +23,5 @@
         <sql>
             create unique index uidx_uac_uc_asc on erp_ac_user_account_set(user_code,account_set_code);
         </sql>
-        <sql>
-            create unique index uidx_uac_uc_selected on erp_ac_user_account_set(user_code,selected);
-        </sql>
     </changeSet>
 </databaseChangeLog>

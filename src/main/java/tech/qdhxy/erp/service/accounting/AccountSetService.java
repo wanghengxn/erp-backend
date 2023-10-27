@@ -50,4 +50,8 @@ public class AccountSetService extends ServiceImpl<AccountSetRepository, Account
         }
         return accountSetDTO;
     }
+
+    public AccountSet getOneById(Long id) {
+        return this.baseMapper.selectById(id);
+    }
 }

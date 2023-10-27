@@ -48,7 +48,7 @@ public class SsoUserService extends ServiceImpl<SsoUserRepository, SsoUser> {
                 .flatMap(this::getOneByCode)
                 .map(ssoUserMapper::toDto)
                 .map(dto -> {
-                    dto.setSelectedAccountSetCode(userAccountSetService.getSelectedAccountSetCodeByUserCode(dto.getCode()));
+                    dto.setAccountSets(userAccountSetService.getUserAccountSetByUserCode(dto.getCode()));
                     return dto;
                 })
                 .orElse(null);

@@ -42,6 +42,8 @@ public class UserAccountSetService extends ServiceImpl<UserAccountSetRepository,
         long count = getUserSelectedCount(userAccountSetDTO.getUserCode());
         if(count > 0) {
             userAccountSetDTO.setSelected(false);
+        } else {
+            userAccountSetDTO.setSelected(true);
         }
         if(Objects.nonNull(userAccountSetDTO.getId())) {
 
