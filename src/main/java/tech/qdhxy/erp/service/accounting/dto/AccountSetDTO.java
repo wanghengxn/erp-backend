@@ -2,7 +2,6 @@ package tech.qdhxy.erp.service.accounting.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import tech.qdhxy.erp.domain.accounting.enums.UserRoleEnum;
 
 import javax.validation.constraints.NotNull;
 
@@ -56,4 +55,5 @@ public class AccountSetDTO {
     private String taxEmpPassword;
     // 是否正常状态0被删除1正常
     private Integer status = 1;
+
 }

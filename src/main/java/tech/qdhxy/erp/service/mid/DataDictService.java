@@ -108,4 +108,13 @@ public class DataDictService extends ServiceImpl<DataDictRepository, DataDict> {
                 })
                 .collect(Collectors.toList());
     }
+
+    public List<DataDict> getDictByGroupKeyAndItemKeys(String groupKey, Collection<String> itemKeys) {
+
+        return this.baseMapper.selectList(Wrappers.<DataDict>lambdaQuery()
+                        .select(DataDict::getId, DataDict::getItemKey, DataDict::getItemValue)
+                        .eq(DataDict::getGroupKey, groupKey)
+                        .in(DataDict::getItemKey, itemKeys)
+                        .eq(DataDict::getStatus, true));
+    }
 }
