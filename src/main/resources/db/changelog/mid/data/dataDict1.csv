@@ -1,0 +1,7 @@
+id;group_key;item_key;item_value;status;created_date;created_by
+25;META;AC_CATEGORY;会计分类;true;now();system
+26;AC_CATEGORY;Assets;资产;true;now();system
+27;AC_CATEGORY;Liabilities;负债;true;now();system
+28;AC_CATEGORY;Equity;权益;true;now();system
+29;AC_CATEGORY;Expenses;成本;true;now();system
+30;AC_CATEGORY;Revenues;损益;true;now();system

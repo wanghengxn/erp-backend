@@ -20,10 +20,13 @@
     <!-- 中台 开始 -->
     <include file="db/changelog/mid/$0001_data_dict.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/mid/$0002_data_dict_data.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/mid/$0003_data_dict_data.xml" relativeToChangelogFile="false"/>
     <!-- 中台 结束 -->
 
     <!-- 财务 开始 -->
     <include file="db/changelog/accounting/$0001_account_set.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/accounting/$0002_user_account_set.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/accounting/$0003_account_subject_tpl.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/accounting/$0004_account_subject_tpl_data.xml" relativeToChangelogFile="false"/>
     <!-- 财务 结束 -->
 </databaseChangeLog>
