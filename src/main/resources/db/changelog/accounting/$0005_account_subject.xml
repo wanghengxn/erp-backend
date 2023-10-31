@@ -3,13 +3,14 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
-    <changeSet id="accounting-0003" author="whx">
+    <changeSet id="accounting-0005" author="whx">
         <sql>
-            CREATE TABLE `erp_ac_account_subject_tpl`
+            CREATE TABLE `erp_ac_account_subject`
             (
                 `id`                 BIGINT ( 20 ) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-                `category`           varchar(64)  not null comment '会计分类',
+                `account_set_code`   varchar(64)  not null comment '帐套代码',
                 `level`              INT          NOT NULL DEFAULT 1 COMMENT '级别',
+                `category`           varchar(64)  not null comment '会计分类',
                 `code`               VARCHAR(64)  NOT NULL COMMENT '科目编码',
                 `name`               VARCHAR(60)  NOT NULL COMMENT '科目名称',
                 `fast_code`          VARCHAR(60)  NOT NULL COMMENT '助记码',
@@ -21,10 +22,10 @@
                 `last_modified_date` TIMESTAMP(0) NULL DEFAULT NULL COMMENT '最后更新时间',
                 `last_modified_by`   VARCHAR(60) NULL DEFAULT NULL COMMENT '最后更新人',
                 PRIMARY KEY (`id`) USING BTREE
-            ) ENGINE = INNODB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT '财务-科目模板';
+            ) ENGINE = INNODB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT '财务-科目';
         </sql>
         <sql>
-            create unique index uidx_subject_tpl_code on erp_ac_account_subject_tpl(code);
+            create unique index uidx_subject_asc_code on erp_ac_account_subject(account_set_code, code);
         </sql>
     </changeSet>
 </databaseChangeLog>

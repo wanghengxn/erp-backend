@@ -30,6 +30,7 @@ public class AccountSetService extends ServiceImpl<AccountSetRepository, Account
     private final UserAccountSetService userAccountSetService;
     private final CodeGetter codeGetter;
     private final DataDictService dataDictService;
+    private final AccountSubjectService accountSubjectService;
 
     public IPage<AccountSetPageVM> getPage(AccountSetQuery query) {
         String userCode = SecurityUtils.mustGetCurrentUserLogin();
@@ -71,6 +72,8 @@ public class AccountSetService extends ServiceImpl<AccountSetRepository, Account
             userAccountSetDTO.setUserCode(userCode);
             userAccountSetDTO.setUserRole(UserRoleEnum.ADMIN);
             userAccountSetService.saveRecord(userAccountSetDTO);
+            // 科目初始化
+            accountSubjectService.copyTpl(accountSetDTO.getCode());
         } else {
             this.baseMapper.update(null, Wrappers.<AccountSet>lambdaUpdate()
                     .set(AccountSet::getName, accountSetDTO.getName())

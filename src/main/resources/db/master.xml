@@ -28,5 +28,6 @@
     <include file="db/changelog/accounting/$0002_user_account_set.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/accounting/$0003_account_subject_tpl.xml" relativeToChangelogFile="false"/>
     <include file="db/changelog/accounting/$0004_account_subject_tpl_data.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/accounting/$0005_account_subject.xml" relativeToChangelogFile="false"/>
     <!-- 财务 结束 -->
 </databaseChangeLog>
