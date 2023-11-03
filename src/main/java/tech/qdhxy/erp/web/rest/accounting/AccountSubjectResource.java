@@ -13,6 +13,7 @@ import tech.qdhxy.erp.service.accounting.dto.AccountSubjectDTO;
 import tech.qdhxy.erp.web.rest.accounting.query.AccountSetQuery;
 import tech.qdhxy.erp.web.rest.accounting.query.AccountSubjectQuery;
 import tech.qdhxy.erp.web.rest.accounting.vm.AccountSetPageVM;
+import tech.qdhxy.erp.web.rest.accounting.vm.SubjectBatchOperationVM;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -49,4 +50,13 @@ public class AccountSubjectResource {
 //    public void deleteById(@NotNull @PathVariable Long id) {
 //        this.accountSubjectService.deleteById(id);
 //    }
+
+        @PutMapping("/batch-operation")
+    public void doBatchOperation(@Valid @RequestBody SubjectBatchOperationVM operationVM) {
+        if(SubjectBatchOperationVM.ENABLE_ALL.equals(operationVM.getAction())) {
+            accountSubjectService.updateStateByIds(operationVM.getIds(), true);
+        }  else if(SubjectBatchOperationVM.DISABLE_ALL.equals(operationVM.getAction())) {
+            accountSubjectService.updateStateByIds(operationVM.getIds(), false);
+        }
+    }
 }
