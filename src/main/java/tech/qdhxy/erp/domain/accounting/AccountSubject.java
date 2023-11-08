@@ -27,5 +27,8 @@ public class AccountSubject extends BaseEntity {
     private Long pid;
     // 状态 0停用 1启用
     private Integer status = 1;
+
+    // 是否系统预设
+    private Boolean def = false;
 }
 

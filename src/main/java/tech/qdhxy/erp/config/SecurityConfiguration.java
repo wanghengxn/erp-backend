@@ -7,7 +7,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -18,6 +17,7 @@ import tech.qdhxy.erp.security.jwt.JWTConfigurer;
 import tech.qdhxy.erp.security.jwt.TokenProvider;
 
 import java.util.Objects;
+
 @Configuration
 @AllArgsConstructor
 public class SecurityConfiguration {
@@ -25,10 +25,6 @@ public class SecurityConfiguration {
     private final TokenProvider tokenProvider;
     private final SecurityProblemSupport securityProblemSupport;
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public CorsFilter corsFilter() {

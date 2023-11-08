@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import tech.qdhxy.erp.config.ApplicationProperties;
+import tech.qdhxy.erp.service.sso.SsoUserService;
+import tech.qdhxy.erp.service.sso.dto.SsoUserDetailDTO;
 
 import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
@@ -32,6 +34,7 @@ import static tech.qdhxy.erp.config.Constant.AUTHORITIES_KEY;
 @Component
 public class TokenProvider {
     private final ApplicationProperties applicationProperties;
+    private final SsoUserService ssoUserService;
 
     private Key key;
     private Long tokenValidityInMilliseconds;
@@ -90,8 +93,8 @@ public class TokenProvider {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
-
+        SsoUserDetailDTO principal  = ssoUserService.getUserAndAccountSetByUserCode(claims.getSubject());
+        principal.setAuthorities(authorities);
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

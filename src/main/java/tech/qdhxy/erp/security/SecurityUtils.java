@@ -4,10 +4,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import tech.qdhxy.erp.common.exceptions.BadRequestException;
 import tech.qdhxy.erp.common.exceptions.UserNotLoginException;
 import tech.qdhxy.erp.common.utils.AuthoritiesConstants;
+import tech.qdhxy.erp.service.sso.dto.SsoUserDetailDTO;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -34,13 +33,27 @@ public final class SecurityUtils {
     private static String extractPrincipal(Authentication authentication) {
         if (authentication == null) {
             return null;
-        } else if (authentication.getPrincipal() instanceof UserDetails) {
-            UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+        } else if (authentication.getPrincipal() instanceof SsoUserDetailDTO) {
+            SsoUserDetailDTO springSecurityUser = (SsoUserDetailDTO) authentication.getPrincipal();
             return springSecurityUser.getUsername();
         } else if (authentication.getPrincipal() instanceof String) {
             return (String) authentication.getPrincipal();
         }
         return null;
+    }
+
+    public static Optional<SsoUserDetailDTO> getLoginUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        if (authentication.getPrincipal() instanceof SsoUserDetailDTO) {
+            SsoUserDetailDTO springSecurityUser = (SsoUserDetailDTO) authentication.getPrincipal();
+            return Optional.ofNullable(springSecurityUser);
+        }
+        return Optional.empty();
+    }
+
+    public static SsoUserDetailDTO mustGetLoginUser() {
+        return getLoginUser().orElseThrow(UserNotLoginException::new);
     }
 
 

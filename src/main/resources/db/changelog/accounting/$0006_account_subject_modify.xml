@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="accounting-0006" author="whx">
+        <sql>
+            ALTER TABLE `erp_ac_account_subject`
+                ADD COLUMN `def` tinyint(255) NOT NULL DEFAULT 0 COMMENT '是否系统预设';
+        </sql>
+
+    </changeSet>
+</databaseChangeLog>

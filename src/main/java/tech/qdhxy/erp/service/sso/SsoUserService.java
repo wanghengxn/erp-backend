@@ -12,6 +12,7 @@ import tech.qdhxy.erp.repository.sso.SsoUserRepository;
 import tech.qdhxy.erp.security.SecurityUtils;
 import tech.qdhxy.erp.service.accounting.UserAccountSetService;
 import tech.qdhxy.erp.service.sso.dto.SsoUserDTO;
+import tech.qdhxy.erp.service.sso.dto.SsoUserDetailDTO;
 import tech.qdhxy.erp.service.sso.mapper.SsoUserMapper;
 import tech.qdhxy.erp.web.rest.sso.vm.UpdateCurrentUserPwdVM;
 
@@ -52,6 +53,16 @@ public class SsoUserService extends ServiceImpl<SsoUserRepository, SsoUser> {
                     return dto;
                 })
                 .orElse(null);
+    }
+
+    public SsoUserDetailDTO getUserAndAccountSetByUserCode(String userCode) {
+        return this.getOneByCode(userCode)
+                .map(ssoUserMapper::toDetailDto)
+                .map(dto -> {
+                    String selectedAccountSetCode = userAccountSetService.getSelectedAccountSetCodeByUserCode(dto.getCode());
+                    dto.setSelectedAccountSetCode(selectedAccountSetCode);
+                    return dto;
+                }).orElse(null);
     }
 
     public void updatePwd(UpdateCurrentUserPwdVM vm) {
